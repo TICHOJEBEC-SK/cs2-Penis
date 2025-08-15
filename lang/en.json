@@ -1,0 +1,5 @@
+﻿{
+  "RandomResult": " {default}{0} has a {lightred}{1}{default} cm penis!",
+  "RealResult": " {default}The real penis size of player {lightred}{0}{default} is {lightred}{1}{default} cm!",
+  "Cooldown": " {default}Please wait {lightred}{0}s{default} before you can measure again."
+}

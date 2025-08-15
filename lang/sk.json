@@ -1,0 +1,5 @@
+﻿{
+  "RandomResult": " {default}{0} má {lightred}{1}{default} cm cicinu!",
+  "RealResult": " {default}Skutočná veľkosť ciciny hráča {lightred}{0}{default} je {lightred}{1}{default} cm!",
+  "Cooldown": " {default}Počkaj ešte {lightred}{0}s{default}, než budeš môcť znovu merať."
+}

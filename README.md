@@ -3,11 +3,11 @@
 </h1>
 
 <p align="center">
-<i>Loved the tool? Please consider <a href="https://paypal.com/paypalme/cskonet">donating</a>  💸 to help it improve!</i>
+<i>Loved the tool? Please consider <a href="https://paypal.com/paypalme/playpointsk">donating</a>  💸 to help it improve!</i>
 </p>
 
 <p align="center">
-<a href="https://www.paypal.com/paypalme/cskonet"><img src="https://img.shields.io/badge/support-PayPal-blue?logo=PayPal&style=flat-square&label=Donate"/>
+<a href="https://www.paypal.com/paypalme/playpointsk"><img src="https://img.shields.io/badge/support-PayPal-blue?logo=PayPal&style=flat-square&label=Donate"/>
 </a>
 
 #### ABOUT THE PLUGIN
@@ -49,6 +49,6 @@ Discord: tichotm
 
 ## 🙏 Support
 <p align="left">
-<a href="https://paypal.com/paypalme/cskonet"><img src="https://ionicabizau.github.io/badges/paypal.svg">
+<a href="https://paypal.com/paypalme/playpointsk"><img src="https://ionicabizau.github.io/badges/paypal.svg">
 </a>
 </p>

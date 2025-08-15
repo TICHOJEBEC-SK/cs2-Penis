@@ -13,52 +13,82 @@
 
 ---
 
-#### 📜 ABOUT THE PLUGIN
+## 📜 About the Plugin
 
-This is a **fun Counter-Strike 2 plugin** that adds two commands for measuring a player’s “penis” size, with results announced in the chat.  
-The idea was inspired by the Slovak streamer [2SekundovyMato](https://www.youtube.com/@2SekundovyMato).
+A **fun Counter-Strike 2 plugin** for **CounterStrikeSharp** that lets players measure their “penis” size in chat.  
+It includes two commands — a random measurement and a deterministic “real” one based on the player’s name.  
+Inspired by Slovak streamer [2SekundovyMato](https://www.youtube.com/@2SekundovyMato).
 
-The plugin is written in **C#** for **CounterStrikeSharp** and uses a clean, optimized structure with shared cooldown logic and optional `partial` class support for splitting code into multiple files.
+The plugin supports:
+- **Configurable command names** (change `css_cicina` to anything you want)
+- **Configurable cooldown, size range, and prefix**
+- **Color codes** in translations and prefix (`{lightred}`, `{default}`, …)
+- **Language files** (`en.json`, `sk.json`) for easy localization
+- **Shared cooldown system** with optional manual reset
 
 ---
 
-### 🔹 Commands
+## 🔹 Commands
 
 1. **`css_cicina`** – *Random size*
-   - Generates a **random penis size** between `1.00 cm` and `50.99 cm`.
-   - Has a **cooldown of 120 seconds** per player.
-   - Shows the result to **all players in chat**.
+   - Random value between **1.00 cm** and **50.99 cm** (range configurable in config).
+   - Cooldown per player (default: 120s, configurable).
+   - Broadcasts to all players.
 
-2. **`css_realcicina`** – *Name-based size*
-   - Generates a **consistent size** based on the player's name (`GetHashCode()`).
-   - Always gives the **same result for the same name** (per session).
-   - Also has a **120-second cooldown** per player.
-   - Shows the result to **all players in chat** as the “real” size.
+2. **`css_realcicina`** – *Deterministic size*
+   - Based on player name → always the same for the same name (per server run).
+   - Same cooldown and broadcast rules as random.
 
 ---
 
-### 🛠 Code Features
-- **Shared cooldown system** – one method handles cooldown checks for all commands.
-- **Random instance reused** – avoids unnecessary object creation.
-- **Partial class support** – allows splitting commands, utilities, and config into separate files for easier maintenance.
-- **Easy to customize** – change cooldown time, size range, or formatting in one place.
-
----
-
-## 📩 Contact
-If you are interested in this plugin or need custom features, contact me via:
-
-- **Discord:** `tichotm`
-
----
-
-## 🛠 Installation Steps
+## 🛠 Installation
 
 **Requirements**
 - [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp)
 
-**Installation**
-1. Download the plugin files.
-2. Extract the ZIP.
-3. Inside the extracted folder, open `Gameserver`
-4. Copy all files into your server directory: `/game/csgo/addons/counterstrikesharp/plugins`
+**Steps**
+1. Build the plugin (`dotnet build -c Release`) or download prebuilt.
+2. Copy the DLL and `lang/` folder to:
+   ```
+   /game/csgo/addons/counterstrikesharp/plugins/CS2-Penis/
+   ```
+3. Start or restart the server.
+
+---
+
+## ⚙️ Configuration
+
+Config is generated on first run:
+```
+{
+  "ChatPrefix": "[PENIS]",
+  "CooldownSeconds": 120,
+  "MinSizeCm": 1.0,
+  "MaxSizeCm": 50.99,
+  "Language": "en",
+  "RandomCommand": "css_cicina",
+  "RealCommand": "css_realcicina"
+}
+```
+
+- **CooldownSeconds** – time in seconds between uses.
+- **MinSizeCm / MaxSizeCm** – measurement range.
+- **Language** – `en` or `sk`.
+- **RandomCommand / RealCommand** – change the command names.
+
+---
+
+## 🎨 Colors in translations
+
+You can use color tags in `lang/en.json` or `lang/sk.json`:
+
+Example:
+```
+"{default}{0} has a {lightred}{1}{default} cm penis!"
+```
+The `{color}` tags will be replaced by `ChatColors` codes automatically.
+
+---
+
+## 📩 Contact
+- **Discord:** `tichotm`

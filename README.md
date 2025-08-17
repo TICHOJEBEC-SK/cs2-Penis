@@ -50,7 +50,7 @@ The plugin supports:
 1. Build the plugin (`dotnet build -c Release`) or download prebuilt.
 2. Copy the DLL and `lang/` folder to:
    ```
-   /game/csgo/addons/counterstrikesharp/plugins/CS2-Penis/
+   /game/csgo/addons/counterstrikesharp/plugins/Penis/
    ```
 3. Start or restart the server.
 

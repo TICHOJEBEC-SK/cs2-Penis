@@ -5,7 +5,7 @@ using Penis.Services;
 
 namespace Penis;
 
-public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
+public class Penis : BasePlugin, IPluginConfig<PluginConfig>
 {
     public override string ModuleName => "Penis";
     public override string ModuleVersion => "1.2";
@@ -41,7 +41,8 @@ public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
         _l = new Localization(langDir, Config.Language);
 
         RegisterCommandOnce(ref _registeredRandomCmd, Config.RandomCommand, "Random penis size", OnCmdRandom);
-        RegisterCommandOnce(ref _registeredRealCmd, Config.RealCommand, "Deterministic penis size (by name)", OnCmdReal);
+        RegisterCommandOnce(ref _registeredRealCmd, Config.RealCommand, "Deterministic penis size (by name)",
+            OnCmdReal);
     }
 
     private void RegisterCommandOnce(ref string? tracker, string name, string help,
@@ -52,7 +53,10 @@ public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
         tracker = name;
     }
 
-    private string Pref(string s) => $"{Config.ChatPrefix} {s}";
+    private string Pref(string s)
+    {
+        return $"{Config.ChatPrefix} {s}";
+    }
 
     private void OnCmdRandom(CCSPlayerController? caller, CommandInfo info)
     {

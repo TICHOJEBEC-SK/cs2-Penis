@@ -31,7 +31,7 @@ public static class Chat
         ["lightred"] = ChatColors.LightRed,
         ["orange"] = ChatColors.Orange
     };
-    
+
     private static string ApplyColors(string? text)
     {
         if (string.IsNullOrEmpty(text))

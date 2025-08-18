@@ -30,9 +30,4 @@ public class Cooldowns
         _lastUse[player.SteamID] = now;
         return true;
     }
-
-    public void Reset(CCSPlayerController player)
-    {
-        _lastUse.TryRemove(player.SteamID, out _);
-    }
 }

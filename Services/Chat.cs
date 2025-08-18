@@ -1,11 +1,10 @@
-﻿using System.Text.RegularExpressions;
-using CounterStrikeSharp.API;
+﻿using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Utils;
 
 namespace Penis.Services;
 
-public class Chat
+public static class Chat
 {
     private static readonly Dictionary<string, char> ColorMap = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -32,44 +31,35 @@ public class Chat
         ["lightred"] = ChatColors.LightRed,
         ["orange"] = ChatColors.Orange
     };
-
-    private static string ToPascal(string s)
+    
+    private static string ApplyColors(string? text)
     {
-        return string.IsNullOrEmpty(s)
-            ? s
-            : char.ToUpperInvariant(s[0]) + (s.Length > 1 ? s[1..].ToLowerInvariant() : "");
-    }
+        if (string.IsNullOrEmpty(text))
+            return string.Empty;
 
-    private static string ApplyColors(string text)
-    {
-        if (string.IsNullOrEmpty(text)) return text;
+        var t = text;
 
         foreach (var kv in ColorMap)
-            text = text.Replace("{" + kv.Key + "}", kv.Value.ToString());
+            t = t.Replace("{" + kv.Key + "}", kv.Value.ToString());
 
-        foreach (var kv in ColorMap)
-            text = text.Replace("{ChatColors." + ToPascal(kv.Key) + "}", kv.Value.ToString());
-
-        text = Regex.Replace(text, @"\{(?!\d+)([^}]*)\}", string.Empty);
-
-        return text;
+        return t;
     }
 
-    private void ToAll(string message, bool ensureReset = true)
+    private static void ToAll(string message, bool ensureReset = true)
     {
         var msg = ApplyColors(message);
         if (ensureReset) msg += ChatColors.Default;
         Server.PrintToChatAll(msg);
     }
 
-    public void ToAllFmt(string fmt, params object[] args)
+    public static void ToAllFmt(string fmt, params object[] args)
     {
         var templ = ApplyColors(fmt);
         var msg = args.Length == 0 ? templ : string.Format(templ, args);
         ToAll(msg);
     }
 
-    public void ToPlayer(CCSPlayerController player, string fmt, params object[] args)
+    public static void ToPlayer(CCSPlayerController player, string fmt, params object[] args)
     {
         var templ = ApplyColors(fmt);
         var msg = args.Length == 0 ? templ : string.Format(templ, args);
@@ -77,12 +67,12 @@ public class Chat
         player.PrintToChat(msg);
     }
 
-    public bool ValidateCaller(CCSPlayerController? caller)
+    public static bool ValidateCaller(CCSPlayerController? caller)
     {
         return caller is { IsValid: true } && !caller.IsBot && !caller.IsHLTV;
     }
 
-    public string Name(CCSPlayerController player)
+    public static string Name(CCSPlayerController player)
     {
         return string.IsNullOrWhiteSpace(player.PlayerName) ? "Unknown" : player.PlayerName;
     }

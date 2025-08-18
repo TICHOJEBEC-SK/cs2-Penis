@@ -14,7 +14,6 @@ public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
     private readonly Cooldowns _cooldowns = new();
     private Localization _l = null!;
     private readonly SizeGenerator _sizeGen = new();
-    private Chat _chat = null!;
 
     private string? _registeredRandomCmd;
     private string? _registeredRealCmd;
@@ -40,11 +39,9 @@ public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
     {
         var langDir = Path.Combine(ModuleDirectory, "lang");
         _l = new Localization(langDir, Config.Language);
-        _chat = new Chat();
 
         RegisterCommandOnce(ref _registeredRandomCmd, Config.RandomCommand, "Random penis size", OnCmdRandom);
-        RegisterCommandOnce(ref _registeredRealCmd, Config.RealCommand, "Deterministic penis size (by name)",
-            OnCmdReal);
+        RegisterCommandOnce(ref _registeredRealCmd, Config.RealCommand, "Deterministic penis size (by name)", OnCmdReal);
     }
 
     private void RegisterCommandOnce(ref string? tracker, string name, string help,
@@ -56,33 +53,34 @@ public class PenisPlugin : BasePlugin, IPluginConfig<PluginConfig>
     }
 
     private string Pref(string s) => $"{Config.ChatPrefix} {s}";
-    
+
     private void OnCmdRandom(CCSPlayerController? caller, CommandInfo info)
     {
-        if (!_chat.ValidateCaller(caller)) return;
+        if (!Chat.ValidateCaller(caller)) return;
         var player = caller!;
+
         if (!_cooldowns.TryStart(player, Config.CooldownSeconds, out var remaining))
         {
-            _chat.ToPlayer(player, Pref(_l["Cooldown"]), (int)Math.Ceiling(remaining.TotalSeconds));
+            Chat.ToPlayer(player, Pref(_l["Cooldown"]), (int)Math.Ceiling(remaining.TotalSeconds));
             return;
         }
 
         var size = _sizeGen.RandomSize(Config.MinSizeCm, Config.MaxSizeCm);
-        _chat.ToAllFmt(Pref(_l["RandomResult"]), _chat.Name(player), size);
+        Chat.ToAllFmt(Pref(_l["RandomResult"]), Chat.Name(player), size);
     }
-    
+
     private void OnCmdReal(CCSPlayerController? caller, CommandInfo info)
     {
-        if (!_chat.ValidateCaller(caller)) return;
+        if (!Chat.ValidateCaller(caller)) return;
         var player = caller!;
+
         if (!_cooldowns.TryStart(player, Config.CooldownSeconds, out var remaining))
         {
-            _chat.ToPlayer(player, Pref(_l["Cooldown"]), (int)Math.Ceiling(remaining.TotalSeconds));
+            Chat.ToPlayer(player, Pref(_l["Cooldown"]), (int)Math.Ceiling(remaining.TotalSeconds));
             return;
         }
 
-        var size = _sizeGen.DeterministicSize(_chat.Name(player), Config.MinSizeCm, Config.MaxSizeCm);
-        _chat.ToAllFmt(Pref(_l["RealResult"]), _chat.Name(player), size);
+        var size = _sizeGen.DeterministicSize(Chat.Name(player), Config.MinSizeCm, Config.MaxSizeCm);
+        Chat.ToAllFmt(Pref(_l["RealResult"]), Chat.Name(player), size);
     }
-    
 }
